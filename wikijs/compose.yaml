@@ -1,0 +1,26 @@
+# wikijs; sqlite
+---
+# x-environment: &x-environment
+#   TZ: ${TZ}
+#   PUID: ${PUID}
+#   PGID: ${PGID}
+#
+# init: mkdir -p data/{cache,content,uploads} && chmod a+rwx data data/{cache,content,uploads}
+# init: touch data/wikijs.db && chmod a+rwx data/wikijs.db
+version: '3'
+services:
+  wikijs:
+    image: ghcr.io/requarks/wiki:2
+    environment:
+      # <<: *x-environment
+      DB_TYPE: sqlite
+      DB_FILEPATH: /wiki/data/wikijs.db
+    volumes:
+      - ./data:/wiki/data
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+
+
+
+
